@@ -47,19 +47,18 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> showProductsByName(String name) {
+    public List<Product> getProductsByName(String name) {
         return productRepository.findByNameContaining(name);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> showProductsByCode(String codeEAN) {
+    public List<Product> getProductsByCode(String codeEAN) {
         return productRepository.findByCodeEAN(codeEAN);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> showProductsByPrice(float price) {
+    public List<Product> getProductsByPrice(float price) {
         return productRepository.findByPrice(price);
     }
-
 
 }
