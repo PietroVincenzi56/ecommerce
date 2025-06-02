@@ -35,7 +35,7 @@ public class User {
     private String surname;
 
     @Basic
-    @Column(name = "telephone_number", nullable = true, length = 15)
+    @Column(name = "telephone_number", nullable = true, length = 20)
     private String telephoneNumber;
 
     @Basic

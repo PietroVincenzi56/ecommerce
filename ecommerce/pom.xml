@@ -68,6 +68,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+			<version>21.0.1</version> <!-- Usa la versione stabile più recente -->
+		</dependency>
+
 
 	</dependencies>
 
