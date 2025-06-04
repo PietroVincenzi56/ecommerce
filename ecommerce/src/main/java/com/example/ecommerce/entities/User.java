@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -49,6 +50,10 @@ public class User {
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.MERGE)
     @JsonIgnore
     private List<Order> orders;
+
+    @Basic
+    @Column(name = "balance", nullable = false )
+    private BigDecimal balance= BigDecimal.ZERO;
 
 }
 

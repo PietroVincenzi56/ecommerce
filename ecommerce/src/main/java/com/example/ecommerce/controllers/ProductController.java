@@ -26,7 +26,7 @@ public class ProductController {
         try {
             productService.addProduct(product);
         } catch (BarCodeAlreadyExistException e) {
-            return new ResponseEntity<>(new Message("barcode esistente"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Message("barcode inesistente"), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(new Message("Prodotto aggiunto"), HttpStatus.OK);
     }
