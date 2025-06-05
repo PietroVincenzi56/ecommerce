@@ -51,5 +51,4 @@ public class Product {
     @ToString.Exclude
     private List<ProductOrder> productsInPurchase;
 
-
 }

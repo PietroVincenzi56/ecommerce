@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -29,10 +31,14 @@ public class ProductOrder {
     @Column(name = "quantity", nullable = true)
     private int quantity;
 
+    @Basic
+    @Column(name= "price_at_purchase", nullable = true)
+    private BigDecimal priceAtPurchase;
+
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product")
     private Product product;
-
 
 
 }

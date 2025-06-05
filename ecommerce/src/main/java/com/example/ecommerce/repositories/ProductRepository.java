@@ -11,7 +11,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByNameContaining(String name);
     List<Product> findByCodeEAN(String codeEAN);
     List<Product> findByPrice(float price);
+    List<Product> findByIdAndVersion(int id, long version);
     boolean existsByCodeEAN(String codeEAN);
+
 
     @Query("SELECT p " +
             "FROM Product p " +

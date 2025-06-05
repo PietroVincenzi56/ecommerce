@@ -61,4 +61,10 @@ public class ProductService {
         return productRepository.findByPrice(price);
     }
 
+    //Non serve
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByVersion(int id, int version) {
+        return productRepository.findByIdAndVersion(id,version);
+    }
+
 }
