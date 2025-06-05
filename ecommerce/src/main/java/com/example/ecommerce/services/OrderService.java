@@ -86,17 +86,15 @@ public class OrderService {
         userRepository.save(user);
 
         try {
-            Order savedOrder = orderRepository.save(order);
-            return savedOrder;
+            return orderRepository.save(order);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new RuntimeException("Conflitto di aggiornamento, riprova.");
         }
     }
 
 
-
     @Transactional(readOnly = true)
-    public List<Order> getPurchasesByUser(User user) throws UserNotExistsException {
+    public List<Order> getOrdersByUser(User user) throws UserNotExistsException {
         if ( !userRepository.existsById(user.getId()) ) { //il metodo è default di jpa
             throw new UserNotExistsException();
         }
@@ -104,7 +102,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<Order> getPurchasesByUserInPeriod(User user, Date startDate, Date endDate) throws UserNotExistsException, WrongDateException{
+    public List<Order> getOrdersByUserInPeriod(User user, Date startDate, Date endDate) throws UserNotExistsException, WrongDateException{
         if ( !userRepository.existsById(user.getId()) ) {
             throw new UserNotExistsException();
         }
@@ -115,7 +113,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<Order> getAllPurchases() {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
