@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -59,6 +60,15 @@ public class ProductController {
             return new ResponseEntity<>(new Message("Prodotto non trovato"), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
+
+    @GetMapping("/search/by_id")
+    public ResponseEntity getProductById(@RequestParam(required = false) int id) {
+        Optional<Product> ret = productService.getProductsById(id);
+        if(ret.isEmpty())
+            return new ResponseEntity<>(new Message("Prodotto non trovato"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
 
     @GetMapping("/paged")
     public ResponseEntity getAll(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, @RequestParam(value = "sortBy", defaultValue = "id") String sortBy) {

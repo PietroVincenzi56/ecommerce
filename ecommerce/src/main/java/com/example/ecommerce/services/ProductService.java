@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -59,6 +60,11 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<Product> getProductsByPrice(float price) {
         return productRepository.findByPrice(price);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Product> getProductsById(int id) {
+        return productRepository.findById(id);
     }
 
     //Non serve
