@@ -55,5 +55,8 @@ public class User {
     @Column(name = "balance", nullable = false )
     private BigDecimal balance= BigDecimal.ZERO;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Cart cart;
 }
 

@@ -24,7 +24,6 @@ public class Order {
     @Column(name = "id", nullable = false)
     private int id;
 
-
     @Basic
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
