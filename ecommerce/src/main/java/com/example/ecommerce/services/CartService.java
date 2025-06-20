@@ -54,6 +54,12 @@ public class CartService {
         return cart;
     }
 
+    public Cart getCartByCurrentUser() throws UserNotExistsException {
+        User user = getCurrentUser();
+        Cart cart = getCartByUser(user);
+        return cart;
+    }
+
     public Cart addItemToCart(int productId, int quantity) throws ProductNotFoundException, UserNotExistsException {
         User user = getCurrentUser();
         Cart cart = getCartByUser(user);
@@ -83,7 +89,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    public void removeItemFromCart(int productId) throws UserNotExistsException, CartItemNotFoundException {
+    public Cart removeItemFromCart(int productId) throws UserNotExistsException, CartItemNotFoundException {
         User user = getCurrentUser();
         Cart cart = getCartByUser(user);
 
@@ -98,7 +104,7 @@ public class CartService {
 
         cart.getItems().remove(itemToRemove);
         cartItemRepository.delete(itemToRemove);
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
     }
 
     public void clearCart() throws UserNotExistsException {
