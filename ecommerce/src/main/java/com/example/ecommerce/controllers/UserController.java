@@ -38,16 +38,15 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    // Recupera dati dell’utente attualmente loggato (con sincronizzazione da Keycloak)
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
     public ResponseEntity<?> getLoggedUserInfo() {
-        String email = Utils.getEmail().orElse("non disponibile");
-        String userId = Utils.getCurrentUserId().orElse("non disponibile");
-        List<String> roles = Utils.getRoles();
-
-        return ResponseEntity.ok(String.format("Utente %s loggato, id: %s, ruoli: %s", email, userId, roles));
-    } //potrei fare i metodi nel service e passargli i dati da utils (?)
+        User currentUser = userService.syncUserWithKeycloak();
+        return ResponseEntity.ok(currentUser);
+    }
 }
+
 
 
 
