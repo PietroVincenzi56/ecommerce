@@ -2,6 +2,7 @@ package com.example.ecommerce.services;
 
 import com.example.ecommerce.entities.User;
 import com.example.ecommerce.exceptions.MailUserAlreadyExistsException;
+import com.example.ecommerce.exceptions.UserNotExistsException;
 import com.example.ecommerce.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,6 +68,15 @@ public class UserService {
         }
 
         return user;
+    }
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public User rechargeUserBalance(int userId, BigDecimal amount) throws UserNotExistsException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotExistsException());
+
+        user.setBalance(user.getBalance().add(amount));
+        return userRepository.save(user);
     }
 
 

@@ -2,6 +2,7 @@ package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.entities.User;
 import com.example.ecommerce.exceptions.MailUserAlreadyExistsException;
+import com.example.ecommerce.exceptions.UserNotExistsException;
 import com.example.ecommerce.other.Message;
 import com.example.ecommerce.other.Utils;
 import com.example.ecommerce.repositories.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -45,6 +47,15 @@ public class UserController {
         User currentUser = userService.syncUserWithKeycloak();
         return ResponseEntity.ok(currentUser);
     }
+
+    @PostMapping("/{userId}/recharge")
+    public ResponseEntity<User> rechargeBalance(
+            @PathVariable int userId,
+            @RequestBody BigDecimal amount) throws UserNotExistsException {
+        User updatedUser = userService.rechargeUserBalance(userId, amount);
+        return ResponseEntity.ok(updatedUser);
+    }
+
 }
 
 
