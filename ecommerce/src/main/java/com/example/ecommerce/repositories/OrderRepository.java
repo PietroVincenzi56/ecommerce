@@ -10,8 +10,11 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
+    //Nelle altre repository find le ho chiamate get
     List<Order> findByBuyer(User buyer);
+    List<Order> findByUserId (int userId);
     List<Order> findByTime(Date time);
+
 
     @Query("select p from Order p where p.time > ?1 and p.time < ?2 and p.buyer = ?3")
     List<Order> findByBuyerInPeriod(Date startDate, Date endDate, User user);

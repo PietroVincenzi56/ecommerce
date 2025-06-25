@@ -43,10 +43,12 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/{user}")
-    public List<Order> getUserOrders(@RequestBody User user) {
+
+
+    @GetMapping("/{userId}")
+    public List<Order> getUserOrders(@PathVariable("userId") int userId) {
         try {
-            return orderService.getOrdersByUser(user);
+            return orderService.getOrdersByUserId(userId);
         } catch (UserNotExistsException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found", e);
         }
@@ -75,7 +77,5 @@ public class OrderController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong date", e);
         }
     }
-
-
 
 }

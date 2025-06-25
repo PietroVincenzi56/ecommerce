@@ -102,6 +102,16 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public List<Order> getOrdersByUserId(int userId) throws UserNotExistsException {
+        if ( !userRepository.existsById(userId) ) {
+            throw new UserNotExistsException();
+        }
+        return orderRepository.findByUserId(userId);
+    }
+
+
+
+    @Transactional(readOnly = true)
     public List<Order> getOrdersByUserInPeriod(User user, Date startDate, Date endDate) throws UserNotExistsException, WrongDateException{
         if ( !userRepository.existsById(user.getId()) ) {
             throw new UserNotExistsException();
