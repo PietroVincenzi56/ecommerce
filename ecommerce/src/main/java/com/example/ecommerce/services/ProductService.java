@@ -73,4 +73,31 @@ public class ProductService {
         return productRepository.findByIdAndVersion(id,version);
     }
 
+    @Transactional(readOnly = false)
+    public void deleteProduct(int productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new RuntimeException("Prodotto non trovato con ID: " + productId);
+        }
+        productRepository.deleteById(productId);
+    }
+
+    @Transactional(readOnly = false)
+    public Product updateProduct(int productId, Product updatedProduct) {
+        Product existing = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato con ID: " + productId));
+
+        existing.setName(updatedProduct.getName());
+        existing.setDescription(updatedProduct.getDescription());
+        existing.setPrice(updatedProduct.getPrice());
+        existing.setQuantity(updatedProduct.getQuantity());
+        existing.setCodeEAN(updatedProduct.getCodeEAN());
+
+        return productRepository.save(existing);
+    }
+
+    public boolean existsById(int id) {
+        return productRepository.existsById(id);
+    }
+
+
 }

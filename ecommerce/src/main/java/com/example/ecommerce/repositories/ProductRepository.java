@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     boolean existsByCodeEAN(String codeEAN);
 
 
+
     @Query("SELECT p " +
             "FROM Product p " +
             "WHERE (p.name LIKE ?1 OR ?1 IS NULL) AND " +
