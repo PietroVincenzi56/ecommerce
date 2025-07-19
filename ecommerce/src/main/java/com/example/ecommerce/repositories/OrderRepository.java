@@ -12,7 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     //Nelle altre repository find le ho chiamate get
     List<Order> findByBuyer(User buyer);
-    List<Order> findByUserId (int userId);
+    List<Order> findByBuyerId (int userId);
     List<Order> findByTime(Date time);
 
 

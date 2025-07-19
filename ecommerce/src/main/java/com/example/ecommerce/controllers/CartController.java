@@ -23,6 +23,7 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
+
     @PostMapping("/add")
     public ResponseEntity<Cart> addItemToCart(
             @RequestParam int productId,

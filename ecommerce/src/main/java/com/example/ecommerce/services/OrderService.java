@@ -106,7 +106,7 @@ public class OrderService {
         if ( !userRepository.existsById(userId) ) {
             throw new UserNotExistsException();
         }
-        return orderRepository.findByUserId(userId);
+        return orderRepository.findByBuyerId(userId);
     }
 
 

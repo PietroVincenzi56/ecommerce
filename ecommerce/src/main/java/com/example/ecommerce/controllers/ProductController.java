@@ -62,12 +62,12 @@ public class ProductController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
-    @GetMapping("/search/by_id")
-    public ResponseEntity getProductById(@RequestParam(required = false) int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable int id) {
         Optional<Product> ret = productService.getProductsById(id);
-        if(ret.isEmpty())
+        if (ret.isEmpty())
             return new ResponseEntity<>(new Message("Prodotto non trovato"), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(ret, HttpStatus.OK);
+        return new ResponseEntity<>(ret.get(), HttpStatus.OK);
     }
 
 
