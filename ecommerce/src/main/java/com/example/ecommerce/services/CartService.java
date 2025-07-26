@@ -27,21 +27,11 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     private User getCurrentUser() throws UserNotExistsException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new UserNotExistsException();
-        }
+        return userService.syncUserWithKeycloak();
 
-        Jwt jwt = (Jwt) auth.getPrincipal();
-        String userEmail = jwt.getClaim("email");
-
-        User user = userRepository.findByEmail(userEmail);
-        if (user == null) {
-            throw new UserNotExistsException();
-        }
-        return user;
     }
 
     private Cart getCartByUser(User user) {
