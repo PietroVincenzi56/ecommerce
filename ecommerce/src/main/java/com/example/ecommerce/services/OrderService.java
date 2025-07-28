@@ -55,9 +55,14 @@ public class OrderService {
             Product product = productRepository.findById(p.getProduct().getId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            if (product.getVersion()!=(p.getProduct().getVersion())) {
+            //tolto il confronto con version che era buggato
+            BigDecimal currentPrice = BigDecimal.valueOf(product.getPrice());
+            BigDecimal clientPrice = BigDecimal.valueOf(p.getProduct().getPrice());
+
+            if (currentPrice.compareTo(clientPrice) != 0) {
                 throw new PriceChangedException();
             }
+
 
             int remainingQuantity = product.getQuantity() - p.getQuantity();
             if (remainingQuantity < 0) {
@@ -67,7 +72,6 @@ public class OrderService {
             product.setQuantity(remainingQuantity);
 
             // Salva il prezzo corrente del prodotto nel ProductOrder
-            BigDecimal currentPrice = BigDecimal.valueOf(product.getPrice());
             p.setPriceAtPurchase(currentPrice);
 
             total = total.add(currentPrice.multiply(BigDecimal.valueOf(p.getQuantity())));
