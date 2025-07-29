@@ -23,6 +23,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping
     public ResponseEntity createProduct(@RequestBody Product product) {  //@Valid non va e non so perchè
         try {
